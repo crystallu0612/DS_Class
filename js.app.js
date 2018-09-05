@@ -4,7 +4,6 @@
 var app = new Vue({
   el: '#dashboard',
   data: {
-    {
       "name" : "Tapestry",
       "short_description": "Build a visualization layer for the project dashboard",
       "start_date" : "2018-07-01",
@@ -13,6 +12,16 @@ var app = new Vue({
       "spent" : "3456700",
       "projected_spend": "4740500",
       "weekly_effort_target": 400
+  },
+  computed:{
+    days_left: function(){
+      //this.target_date
+      return 31;
+    }
+    methods:{
+      pretty_date: function(){
+        return d;
+      }
     }
   }
 })
