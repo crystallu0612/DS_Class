@@ -1,4 +1,16 @@
-var app = new Vue({
+var dashboardApp = new Vue({
+  el: '#dashboard',
+  data: {
+    message: 'Hello Vue!'
+  }
+})
+
+
+
+
+
+
+/*var dashboardApp = new Vue({
   el: '#dashboard',
   data: {
       "name" : "Tapestry",
@@ -70,8 +82,15 @@ var app = new Vue({
       return 31;
     }
     methods:{
-
-    }
+      fetch()
+        .then(function(response){
+          return response.json();
+        })
+        .then(function(myJason){
+          console.log(JSON.stringfy(myJason));
+        })
+        .catch(console.error('Error',error));
+      }
   },
 
-})
+})*/
