@@ -65,6 +65,7 @@ var dashboardApp = new Vue({
 
   created(){
     this.fetchTasks();
+    this.gotoTask();
   }//created should be out of methods
 
 });
