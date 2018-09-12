@@ -24,9 +24,9 @@ var dashboardApp = new Vue({
         perc_complete: '',
         current_sprint: ''
       }
-
     ]
 },
+
   computed: {
     days_left:function(){
       //this.days_left
@@ -55,15 +55,16 @@ var dashboardApp = new Vue({
     },
     fetchTasks(){
       fetch("https://raw.githubusercontent.com/tag/iu-msis/dev/public/p1-tasks.json")
-      .then(function (response) {return response.json()}
-      .then(function (json) {dashboardApp.tasks= json })
+      .then(function (response) {return response.json();})
+      .then(function (json) {dashboardApp.tasks= json;})
       .catch(function(err){
-        console.log('Task fetch error:')
-        console.log(err)
-      })
-    },
-    created(){
-      this.fetchTasks()
+        console.log('Task fetch error:');
+        console.log(err);});
     }
-}
+  },
+
+  created(){
+    this.fetchTasks();
+  }//created should be out of methods
+
 });

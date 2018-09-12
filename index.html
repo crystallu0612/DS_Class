@@ -38,11 +38,13 @@
     }
     #taskTable > tbody > tr{
       border-left: 12px solid #eee;
+      cursor: pointer;
     }
 
     #taskTable > tbody > tr.current_sprint{
       border-left: 12px solid rgb(35,95,163);
     }
+    tr{cursor: pointer;}
     </style>
 
     <title>Project Dashboard</title>
@@ -108,7 +110,9 @@
           <tbody>
             <tr v-for="task in tasks"
                 :key="task.id"
-                v-bind:class="task.current_sprint ? 'current_sprint' : '' ">
+                :id="'task- ' + task.id"
+                v-bind:class="task.current_sprint ? 'current_sprint' : '' "
+                @clicker="gotoTask(task.id)">
               <td>{{ task.title }}</td>
               <td>{{ task.type }}</td>
               <td>{{ task.size }}</td>
