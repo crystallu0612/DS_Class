@@ -2,17 +2,19 @@
 var dashboardApp = new Vue({
   el: '#dashboard',
   data: {
-      name : "Tapestry",
-      "short_description": "Build a visualization layer for the project dashboard",
-      "start_date" : "2018-07-01",
-      "target_date" : "2018-11-03",
-      "budget" : "4950000",
-      "spent" : "3456700",
-      "projected_spend": "4740500",
-      "weekly_effort_target": 400,
+      project:{
+        name: '',
+        short_description:'',
+        start_date:'',
+        target_date:'',
+        budget:'',
+        spent:'',
+        projected_spend:'',
+        weekly_effort_targtet:''
+      },
       tasks:[
       {
-        id: 1,
+        id: 0,
         title: " ",
         type : "",
         size : "",
@@ -30,16 +32,14 @@ var dashboardApp = new Vue({
   computed: {
     days_left:function(){
       //this.days_left
-      return moment(this.target_date).diff(moment(), 'days');
-    },
-    pretty_target_date: function(){
-      return this.pretty_date(this.target_date);
+      return moment(this.project.target_date).diff(moment(), 'days');
     }
   },
+
   methods: {
     pretty_date: function(d){
-    return moment(d).format('l');
-  },
+      return moment(d).format('l');
+    },
     pretty_currency: function(val){
       if( val < 1e3){
         return "$ "+ val;
@@ -49,23 +49,40 @@ var dashboardApp = new Vue({
       }
       return "$ " + (val/1e6).toFixed(1) + " M";
     },
+
     completeClass: function(task){
       if (task.perc_complete == 100) {return 'alert-success';}
-      if (task.current_sprint && task.hours_worked== 0) {return 'alert-warning';}
+      if (task.current_sprint && task.hours_worked== 0) {
+        return 'alert-warning';}
     },
+
     fetchTasks(){
-      fetch("https://raw.githubusercontent.com/tag/iu-msis/dev/public/p1-tasks.json")
+      fetch('https://raw.githubusercontent.com/tag/iu-msis/dev/public/p1-tasks.json')
       .then(function (response) {return response.json();})
       .then(function (json) {dashboardApp.tasks= json;})
       .catch(function(err){
         console.log('Task fetch error:');
-        console.log(err);});
-    }
-  },
+        console.log(err);
+      });
+      },
 
-  created(){
-    this.fetchTasks();
-    this.gotoTask();
-  }//created should be out of methods
+  fetchProject(){
+    fetch('https://raw.githubusercontent.com/tag/iu-msis/dev/public/project1.json')
+    .then(function(response) {return response.json();})
+    .then(function(json) {dashboardApp.project=json;})
+    .catch(function(err){
+      console.log('Project fetch error:');
+      console.log(err);
+    });
+  },
+  gotoTask(tid){
+    window.location ='task.html?taskId=' + tid;
+  }
+},
+
+created(){
+  this.fetchProject();
+  this.fechTasks();
+}//created should be out of methods
 
 });
