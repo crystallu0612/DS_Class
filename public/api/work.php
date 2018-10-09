@@ -11,8 +11,8 @@ if ($taskId < 1){
 
 
 //1. Go to the database and get all work associated with the $taskId
-$workArr = Work::getAllWorkByTask($taskId);
+$workArr = Work::getWorkByTaskId($taskId);
 //2. Convert to JSON
 $json = json_encode($workArr);
 //3. Print
-echo $json; 
+echo $json;
