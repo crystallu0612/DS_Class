@@ -61,6 +61,24 @@ var tasksApp = new Vue({
     const url= new URL(window.location.href);
     const taskId =url.searchParams.get('taskId');
     console.log('Task: ' + taskId);
+
     if(!taskId){}
+
+
+    fetch('api/work.php?taskId=' +taskId)
+    .then(response => response.json())
+    .then( json =>{tasksApp.work = json})
+    .catch( err =>{
+      console.log('Work fetch error:');
+      console.log(err);
+    })
+
+    fetch('api/team.php')
+    .then(response => response.json())
+    .then( json =>{tasksApp.teamList = json})
+    .catch( err =>{
+      console.log('Team list error:');
+      console.log(err);
+    })
   }
 })
